@@ -22,7 +22,14 @@ const Birthday = () => {
 
         {persons.map((item) => {
           const { id, image, name, age } = item
-          return <Person image={image} name={name} age={age} key={id} />
+          return (
+            <Person
+              image={`assets/img/${image}`}
+              name={name}
+              age={age}
+              key={id}
+            />
+          )
         })}
         <Button variant="danger" onClick={temizle}>
           Temizle
