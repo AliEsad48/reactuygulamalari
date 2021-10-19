@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Container, Row, Col } from "react-bootstrap"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Menu from "./components/shared/Menu"
@@ -29,100 +29,115 @@ import Clock3 from "./components/clock3/Clock3"
 import Posts from "./components/posts/Posts"
 import Odev from "./components/odev/Odev"
 import State from "./components/state/State"
+import { StoreContext } from "./components/store"
+import axios from "axios"
+import Exchange from "./components/exchange/Exchange"
 function App() {
+  const [kurlar, setKurlar] = useState({})
+  useEffect(() => {
+    axios("https://api.frankfurter.app/latest?from=try").then((resp) => {
+      console.log(resp.data)
+      setKurlar(resp.data.rates)
+    })
+  }, [])
   return (
-    <Router>
-      <Header />
-      <Container>
-        <Row>
-          <Col md={4}>
-            <Menu />
-          </Col>
-          <Col md={8}>
-            <Switch>
-              <Route path="/state">
-                <State />
-              </Route>
-              <Route path="/progress">
-                <Odev />
-              </Route>
-              <Route path="/posts">
-                <Posts />
-              </Route>
-              <Route path="/todoapp">
-                <ToDoApp />
-              </Route>
-              <Route path="/shop">
-                <Shop />
-              </Route>
-              <Route path="/form4">
-                <Form4 />
-              </Route>
-              <Route path="/form3">
-                <Form3 />
-              </Route>
-              <Route path="/form2">
-                <Form2 />
-              </Route>
-              <Route path="/form1">
-                <Form1 />
-              </Route>
-              <Route path="/comp">
-                <Comp />
-              </Route>
-              <Route path="/hello">
-                <Hello />
-              </Route>
-              <Route path="/counter">
-                <Counter />
-              </Route>
-              <Route path="/jsx">
-                <Jsx />
-              </Route>
-              <Route path="/profile">
-                <Profile />
-              </Route>
-              <Route path="/props">
-                <Props />
-              </Route>
-              <Route path="/random-images">
-                <RandomImages />
-              </Route>
-              <Route path="/usercards">
-                <UserCards />
-              </Route>
-              <Route path="/useeffect">
-                <ChangeTitle />
-              </Route>
-              <Route path="/countries">
-                <Countries />
-              </Route>
-              <Route path="/clock3">
-                <Clock3 />
-              </Route>
-              <Route path="/clock2">
-                <Clock2Page />
-              </Route>
-              <Route path="/clock1">
-                <Clock1Page />
-              </Route>
-              <Route path="/bs-react">
-                <BootstrapReactPage />
-              </Route>
-              <Route path="/bs-classic">
-                <BootstrapClassicPage />
-              </Route>
-              <Route path="/birthday">
-                <BirthdayPage />
-              </Route>
-              <Route path="/">
-                <HomePage />
-              </Route>
-            </Switch>
-          </Col>
-        </Row>
-      </Container>
-    </Router>
+    <StoreContext.Provider value={{ kurlar }}>
+      <Router>
+        <Header />
+        <Container>
+          <Row>
+            <Col md={4}>
+              <Menu />
+            </Col>
+            <Col md={8}>
+              <Switch>
+                <Route path="/exchange">
+                  <Exchange />
+                </Route>
+                <Route path="/state">
+                  <State />
+                </Route>
+                <Route path="/progress">
+                  <Odev />
+                </Route>
+                <Route path="/posts">
+                  <Posts />
+                </Route>
+                <Route path="/todoapp">
+                  <ToDoApp />
+                </Route>
+                <Route path="/shop">
+                  <Shop />
+                </Route>
+                <Route path="/form4">
+                  <Form4 />
+                </Route>
+                <Route path="/form3">
+                  <Form3 />
+                </Route>
+                <Route path="/form2">
+                  <Form2 />
+                </Route>
+                <Route path="/form1">
+                  <Form1 />
+                </Route>
+                <Route path="/comp">
+                  <Comp />
+                </Route>
+                <Route path="/hello">
+                  <Hello />
+                </Route>
+                <Route path="/counter">
+                  <Counter />
+                </Route>
+                <Route path="/jsx">
+                  <Jsx />
+                </Route>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+                <Route path="/props">
+                  <Props />
+                </Route>
+                <Route path="/random-images">
+                  <RandomImages />
+                </Route>
+                <Route path="/usercards">
+                  <UserCards />
+                </Route>
+                <Route path="/useeffect">
+                  <ChangeTitle />
+                </Route>
+                <Route path="/countries">
+                  <Countries />
+                </Route>
+                <Route path="/clock3">
+                  <Clock3 />
+                </Route>
+                <Route path="/clock2">
+                  <Clock2Page />
+                </Route>
+                <Route path="/clock1">
+                  <Clock1Page />
+                </Route>
+                <Route path="/bs-react">
+                  <BootstrapReactPage />
+                </Route>
+                <Route path="/bs-classic">
+                  <BootstrapClassicPage />
+                </Route>
+                <Route path="/birthday">
+                  <BirthdayPage />
+                </Route>
+                <Route path="/">
+                  <HomePage />
+                </Route>
+              </Switch>
+            </Col>
+          </Row>
+        </Container>
+      </Router>
+    </StoreContext.Provider>
   )
 }
 export default App

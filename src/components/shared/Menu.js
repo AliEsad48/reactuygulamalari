@@ -70,6 +70,9 @@ const Menu = () => {
       <ListGroup.Item as={Link} to="/todoapp" eventKey="todoapp">
         ToDo App
       </ListGroup.Item>
+      <ListGroup.Item as={Link} to="/exchange" eventKey="exchange">
+        Exchange
+      </ListGroup.Item>
     </ListGroup>
   )
 }
